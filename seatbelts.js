@@ -44,7 +44,7 @@ class seatBelts {
                     }
 
                     if(this.player.vehicle && !this.config.blockedClasses.indexOf(this.player.vehicle.getClass()) == -1) {
-                        mp.events.call('notifs', ['This vehicle does not have a seatbelt'])
+                        mp.events.call('requestBrowser', [`gui.notify.showNotification("This vehicle doesn't have a seatbelt", false, true, 7000, 'fa-solid fa-triangle-exclamation')`])
                     }
                     break;
                 }
@@ -55,7 +55,7 @@ class seatBelts {
                     }
 
                     if(this.player.vehicle && !this.config.blockedClasses.indexOf(this.player.vehicle.getClass()) == -1) {
-                        mp.events.call('notifs', ['This vehicle does not have a seatbelt'])
+                        mp.events.call('requestBrowser', [`gui.notify.showNotification("This vehicle doesn't have a seatbelt", false, true, 7000, 'fa-solid fa-triangle-exclamation')`])
                     }
                     break;
                 }
