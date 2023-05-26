@@ -12,9 +12,9 @@ class seatBelts {
 
         mp.events.add({
             'toggleBelt': () => {
-                if(this.player.vehicle) {
-                    if(!this.config.blockedClasses.indexOf(this.player.vehicle.getClass()) == -1) {return mp.events.call('requestBrowser', `gui.notify.showNotification("This vehicle doesn't have a seatbelt.", false, true, 7000, 'fa-solid fa-triangle-exclamation')`)}
-                    this.toggleSeatBelt();
+                if(mp.players.local) {
+                    if(this.config.blockedClasses.indexOf(mp.players.local.vehicle.getClass()) !== -1) {return mp.events.call('requestBrowser', `gui.notify.showNotification("This vehicle doesn't have a seatbelt.", false, true, 7000, 'fa-solid fa-triangle-exclamation')`)}
+                    else { this.toggleSeatBelt(); }
                 }
             },
             "playerLeaveVehicle": (vehicle, seat) => {
@@ -50,13 +50,13 @@ class seatBelts {
     beltOn() {
         this.player.hasSBelt = true
         this.player.setConfigFlag(this.PED_FLAG_CAN_FLY_THRU_WINDSCREEN, false);
-        mp.events.call('ameCreate', 'Buckles seatbelt') // Send a message to player (You can implement your own system for that)
+        mp.events.call('ameCreate', 'Buckles seatbelt')
     }
 
     beltOff() {
         this.player.hasSBelt = false
         this.player.setConfigFlag(this.PED_FLAG_CAN_FLY_THRU_WINDSCREEN, true);
-        mp.events.call('ameCreate', 'Unbuckles seatbelt') // Send a message to player (You can implement your own system for that)
+        mp.events.call('ameCreate', 'Unbuckles seatbelt')
     }
 
 }
