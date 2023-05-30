@@ -1,9 +1,9 @@
 class seatBelts {
 
     constructor() {
-        this.player = mp.players.local
-        this.key = 74 // J key
-        this.PED_FLAG_CAN_FLY_THRU_WINDSCREEN = 32
+        this.player = mp.players.local;
+        this.key = 74; // J key
+        this.PED_FLAG_CAN_FLY_THRU_WINDSCREEN = 32;
         this.toggle = true;
 
         this.config = {
@@ -13,7 +13,7 @@ class seatBelts {
         mp.events.add({
             'toggleBelt': () => {
                 if(mp.players.local) {
-                    if(this.config.blockedClasses.indexOf(mp.players.local.vehicle.getClass()) !== -1) {return mp.events.call('requestBrowser', `gui.notify.showNotification("This vehicle doesn't have a seatbelt.", false, true, 7000, 'fa-solid fa-triangle-exclamation')`)}
+                    if(this.config.blockedClasses.indexOf(mp.players.local.vehicle.getClass()) !== -1) {return mp.gui.chat.push("This vehicle doesn't have a seatbelt.")}
                     else { this.toggleSeatBelt(); }
                 }
             },
@@ -26,7 +26,7 @@ class seatBelts {
         })
 
         mp.keys.bind(this.key, true, function() {
-            if(!mp.players.local.isTypingInTextChat) {
+            if(!mp.players.local.isTypingInTextChat && mp.players.local.vehicle) {
                 mp.events.call('toggleBelt');
             }
         });
@@ -50,13 +50,13 @@ class seatBelts {
     beltOn() {
         this.player.hasSBelt = true
         this.player.setConfigFlag(this.PED_FLAG_CAN_FLY_THRU_WINDSCREEN, false);
-        mp.events.call('ameCreate', 'Buckles seatbelt')
+        mp.gui.chat.push('You have buckled your seatbelt.') // Insert custom notification event
     }
 
     beltOff() {
         this.player.hasSBelt = false
         this.player.setConfigFlag(this.PED_FLAG_CAN_FLY_THRU_WINDSCREEN, true);
-        mp.events.call('ameCreate', 'Unbuckles seatbelt')
+        mp.gui.chat.push('You have unbuckled your seatbelt.') // Insert custom notification event
     }
 
 }
